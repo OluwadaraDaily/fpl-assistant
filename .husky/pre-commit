@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Backend pre-commit hooks
+cd backend
+pre-commit run --all-files
+cd ..
+
+# Frontend pre-commit hooks
+cd frontend
+pnpm exec vue-tsc --noEmit
+pnpm run lint
+pnpm run format
