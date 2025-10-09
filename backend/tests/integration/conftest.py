@@ -27,7 +27,7 @@ def test_database_url():
 
 
 @pytest.fixture
-async def setup_test_data():
+def setup_test_data():
     """Setup test data for integration tests."""
     test_data = {
         "users": [
@@ -36,4 +36,4 @@ async def setup_test_data():
         ]
     }
 
-    yield test_data
+    return test_data

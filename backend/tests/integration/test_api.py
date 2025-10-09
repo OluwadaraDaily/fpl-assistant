@@ -1,6 +1,3 @@
-import pytest
-
-
 class TestAPIIntegration:
     """Integration tests for API endpoints."""
 
@@ -22,11 +19,19 @@ class TestAPIIntegration:
         assert isinstance(json_response, dict)
         assert "Hello" in json_response
 
-    @pytest.mark.asyncio
-    async def test_async_endpoint_integration(self, setup_test_data):
-        """Test async endpoint with test data."""
-        # Example of testing with setup data
-        test_data = await setup_test_data
+    def test_endpoint_integration_with_test_data(
+        self, integration_client, setup_test_data
+    ):
+        """Test endpoint integration with test data setup."""
+        # Use test data for validation
+        test_data = setup_test_data
 
+        # Test the actual endpoint
+        response = integration_client.get("/")
+
+        assert response.status_code == 200
+        assert "Hello" in response.json()
+
+        # Validate our test data setup works
         assert "users" in test_data
         assert len(test_data["users"]) == 2
