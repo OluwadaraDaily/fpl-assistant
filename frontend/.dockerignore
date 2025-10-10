@@ -68,10 +68,6 @@ docker-compose*.yml
 .prettierrc*
 .editorconfig
 .browserslistrc
-tsconfig*.json
-# vite.config.*
-vue.config.*
-nuxt.config.*
 
 # Package manager files (keep package.json but ignore lock files during build)
 package-lock.json
