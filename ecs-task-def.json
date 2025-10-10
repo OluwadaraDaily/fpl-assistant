@@ -15,11 +15,7 @@
                 }
             ],
             "essential": true,
-            "environment": [
-                {
-                    "value": "<to-be-set-in-ECS>"
-                }
-            ],
+            "environment": [],
             "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
