@@ -48,3 +48,9 @@ uvloop==0.21.0
 virtualenv==20.34.0
 watchfiles==1.1.0
 websockets==15.0.1
+
+# Development dependencies
+flake8==7.1.1
+black==24.10.0
+pytest==8.3.3
+pytest-cov==6.0.0
