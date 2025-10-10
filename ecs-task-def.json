@@ -60,6 +60,5 @@
     "cpu": "1024",
     "memory": "3072",
     "registeredAt": "2025-10-10T13:46:19.704000+01:00",
-    "registeredBy": "arn:aws:iam::528090623826:root",
-    "enableFaultInjection": false
+    "registeredBy": "arn:aws:iam::528090623826:root"
 }
