@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "fpl-backend",
-            "image": "ghcr.io/oluwadaradaily/fpl-backend:latest",
+            "image": "528090623826.dkr.ecr.us-east-2.amazonaws.com/fpl-backend",
             "cpu": 0,
             "portMappings": [
                 {

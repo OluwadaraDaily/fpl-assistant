@@ -1,7 +1,10 @@
 name: Deploy to AWS ECS
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Build and Push to GHCR"]
+    types:
+      - completed
     branches:
       - main
 
@@ -17,6 +20,7 @@ jobs:
   deploy:
     name: Build, Push, and Deploy
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout code
@@ -37,7 +41,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker build -f backend/Dockerfile.prod -t $ECR_REGISTRY/$ECR_REPOSITORY:latest ./backend
+          docker build -f backend/Dockerfile.prod -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
       - name: Render new ECS task definition
