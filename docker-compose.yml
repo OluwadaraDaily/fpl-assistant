@@ -7,6 +7,8 @@ services:
       - "8000:8000"
     env_file:
       - ./backend/.env
+    volumes:
+      - ./backend:/app
     depends_on:
       - db
       - redis
@@ -18,6 +20,9 @@ services:
       - "5173:5173"
     env_file:
       - ./frontend/.env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     depends_on:
       - api
 
@@ -26,19 +31,19 @@ services:
     container_name: fpl_db
     restart: always
     environment:
-      POSTGRES_USER: fpl_user
-      POSTGRES_PASSWORD: fpl_pass
-      POSTGRES_DB: fpl
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
 
   redis:
     image: redis:alpine
     container_name: fpl_redis
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:6379"
 
 volumes:
   postgres_data:

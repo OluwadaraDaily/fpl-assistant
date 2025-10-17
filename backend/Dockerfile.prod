@@ -15,4 +15,20 @@ EXPOSE 8000
 # To use uvicorn only, set CMD_MODE=uvicorn in docker-compose or container env
 ENV CMD_MODE=gunicorn
 
-CMD ["sh", "-c", "if [ \"$CMD_MODE\" = \"uvicorn\" ]; then uvicorn main:app --host 0.0.0.0 --port 8000; else gunicorn -k uvicorn.workers.UvicornWorker main:app --workers 4 --bind 0.0.0.0:8000; fi"]
+# Create startup script
+RUN echo '#!/bin/sh\n\
+echo "Running database migrations..."\n\
+alembic upgrade head\n\
+if [ $? -ne 0 ]; then\n\
+  echo "Migration failed!"\n\
+  exit 1\n\
+fi\n\
+echo "Migrations completed successfully"\n\
+\n\
+if [ "$CMD_MODE" = "uvicorn" ]; then\n\
+  uvicorn app.main:app --host 0.0.0.0 --port 8000\n\
+else\n\
+  gunicorn -k uvicorn.workers.UvicornWorker app.main:app --workers 4 --bind 0.0.0.0:8000\n\
+fi' > /app/start.sh && chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]
