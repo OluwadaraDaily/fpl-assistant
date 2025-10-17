@@ -55,10 +55,10 @@ jobs:
       run: black --check .
     
     - name: Run unit tests
-      run: pytest tests/unit/ -v --cov=. --cov-report=xml
-    
+      run: pytest app/tests/unit/ -v --cov=. --cov-report=xml
+
     - name: Run integration tests
-      run: pytest tests/integration/ -v
+      run: pytest app/tests/integration/ -v
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
@@ -169,4 +169,4 @@ jobs:
     - name: Run backend E2E tests
       run: |
         cd backend
-        pytest tests/e2e/ -v
+        pytest app/tests/e2e/ -v
